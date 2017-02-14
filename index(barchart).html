@@ -1,0 +1,278 @@
+<html>
+<head>
+<title>Project 0</title>
+<style type="text/css" href="project0.css"></style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--Put your D3 import statement between these two lines-->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="./regression.min.js"></script>
+<!--Put your D3 import statement between these two lines-->
+</head>
+
+<body>
+	<div id="partOne">
+        <h1>Part One: </h1>
+	</div>
+    
+    <div id="partTwo">
+        <h1>Part Two: </h1>
+        <div id="barchart">
+        </div>
+	</div>
+    
+    <div id="partThree">
+        <h1>Part Three &amp; Four: </h1>
+        <div id="scatterplot">
+            <p id="scatterLabel"></p>
+        </div>
+	</div>
+    
+    <div id="partFive">
+        <h1>Part Five: </h1>
+        <div id="scatterplotSet">
+        </div>
+	</div>
+    
+    <script type="text/javascript">
+        // Put your part one code here ***********************
+        d3.csv('./data/anscombe_I.csv', function(dataset){
+            var data = new Array();
+            var x = 0;
+            var y = 0;
+            for(var i = 0 ; i < dataset.length ; i++){
+                var temp = new Array();
+                x = parseFloat(dataset[i]['x']);
+                y = parseFloat(dataset[i]['y']);
+                temp[0] = x;
+                temp[1] = y;
+                data[i] = temp;
+            }
+            var result = regression('linear', data);
+            console.log(result);
+
+
+        });
+        d3.csv('./data/anscombe_II.csv', function(dataset){
+            checkDataset(dataset)
+        });
+        d3.csv('./data/anscombe_III.csv', function(dataset){
+            checkDataset(dataset)
+        });
+        d3.csv('./data/anscombe_IV.csv', function(dataset){
+            checkDataset(dataset)
+        });
+        // Leave this to test your data uploading. All data uploading should be above this line
+        function checkDataset(dataset) {
+            if (dataset.length == 11)
+                $("#partOne").append("<p>data loaded correctly</p>");
+            else
+                $("#partOne").append("<p>data loaded incorrectly. Try using the debugger to help you find the bug!</p>");
+        }
+        // Put your part two code here (This part was created by Linzi Xing)***********************
+        function bbSort(data){  // used to sort dataset in the right order.
+            var l = data.length;
+            var t;
+            for(var i=0;i<data.length;i++){
+                for(var j=0;j<i;j++){
+                    c1 = data[i];
+                    c2 = data[j];
+                    if(parseFloat(c1['x'])<=parseFloat(c2['x'])){
+                        t = data[i];
+                        data[i] = data[j];
+                        data[j] = t;
+                    }
+                }
+            }
+            return data;
+        }
+        d3.csv('./data/anscombe_I.csv', function(dataset){
+            var data = dataset;
+            var w = 500;
+            var h = 300;
+            var xOffset = 30;
+            var yOffset = 20;
+            var interval = 2;
+            var margin = 10;
+            var xscale = d3.scale.linear()              //create x axis scale for both svg and svg2
+                        .domain([
+                            0, 
+                            data.length+1
+                            ])
+                        .range([xOffset + margin, w - margin]);
+
+            var yscale = d3.scale.linear()              //create y axis scale for svg
+                        .domain([
+                            0, 
+                            d3.max(data, function(d){
+                                return parseFloat(d['x']);})+1
+                            ])
+                        .range([h - yOffset - margin, margin]);
+
+            var yscale2 = d3.scale.linear()             //create y axis scale for svg2
+                        .domain([
+                            d3.min(data, function(d){
+                                return Math.floor(parseFloat(d['y']));})-1, 
+                            d3.max(data, function(d){
+                                return Math.ceil(parseFloat(d['y']));})+1
+                            ])
+                        .range([h - yOffset - margin, margin]);
+
+            
+
+            var svg = d3.select("#partTwo")                //add two svgs on div partTwo. First
+                        .append("svg")                     //for corresponding to the x-value of the data
+                        .attr("width", w)                  //second for corresponding to the y-value of the data
+                        .attr("height", h);
+
+            var svg2 = d3.select("#partTwo")
+                        .append("svg") 
+                        .attr("width", w)
+                        .attr("height", h);
+
+            var xAxis = d3.svg.axis()
+                    .scale(xscale)
+                    .orient('bottom')
+                    
+            var xAxisG = svg.append('g')                //add x axis for svg
+                            .attr('class','axis')
+                            .attr('transform','translate(0,'+(h-yOffset-margin)+')')
+                            .call(xAxis);
+
+            var xAxisG2 = svg2.append('g')              //add x axis for svg2
+                            .attr('class','axis')
+                            .attr('transform','translate(0,'+(h-yOffset-margin)+')')
+                            .call(xAxis);
+
+
+            var yAxis = d3.svg.axis()                 //because y scale of each svg are different, so here
+                            .scale(yscale)            //we need to initialize two
+                            .orient('left')
+                            .ticks(15);
+            var yAxis2 = d3.svg.axis()
+                            .scale(yscale2)
+                            .orient('left')
+                            .ticks(10);
+            var yAxisG = svg.append('g')
+                            .attr('class','axis')
+                            .attr('transform','translate('+(xOffset+margin)+',0)')
+                            .call(yAxis);
+            var yAxisG2 = svg2.append('g')
+                            .attr('class','axis')
+                            .attr('transform','translate('+(xOffset+margin)+',0)')
+                            .call(yAxis2);
+            var yLabel = svg.append('text')
+                            .attr('class','label')
+                            .attr('x',xOffset/3)
+                            .attr('y',h/2)
+                            .text('X');
+            var yLabel2 = svg2.append('text')
+                            .attr('class','label')
+                            .attr('x',xOffset/3)
+                            .attr('y',h/2)
+                            .text('Y');
+            var g = svg.append('g')                 //definit a group DOM to put rect and text at the same time
+            bar = g.selectAll("rect")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr("class",function(d,i){
+                        return 'rect'+i;
+                    })
+                    .attr("x", function(d,i){
+                        return xOffset + margin+ i*(w-xOffset-2*margin)/(data.length+1)+(w-xOffset-2*margin)/(2*(data.length+1));
+                        }
+                    )
+                    .attr("y", function(d){
+                        return h - ((d['x'])*(h - yOffset - margin*2)/15) - yOffset- margin;
+                    })
+                    .attr("width", function(d,i){
+                        return (w-xOffset-2*margin)/(data.length+1)-interval;
+                        }
+                    )
+                    .attr("height", function(d){
+                        console.log(d['y']);
+                        return (h - yOffset - 2*margin)*(d['x'])/15;})
+                    .attr("fill", "steelblue");
+
+            g.selectAll("text")             //create text DOM
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("font-size","15px")
+                    .attr("x",function(d,i){  
+                        return xOffset + margin+ i*(w-xOffset-2*margin)/(data.length+1)+(w-xOffset-2*margin)/(2*(data.length+1))+12;   
+                    })  
+                    .attr("y", function(d,i){  
+                        return h - ((d['x'])*(h - yOffset - margin*2)/15) - yOffset- margin - 5;  
+                    })
+                    .text(function(d){  
+                        return d['x'];  
+                    });   
+            
+            var g = svg2.append('g')            //same above
+            g.selectAll("rect")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr("class",function(d,i){
+                        return 'rect'+i;
+                    })
+                    .attr("x", function(d,i){
+                        return xOffset + margin+ i*(w-xOffset-2*margin)/(data.length+1)+(w-xOffset-2*margin)/(2*(data.length+1));
+                        }
+                    )
+                    .attr("y", function(d){
+                        return h - ((d['y']-3)*(h - yOffset - margin*2)/9) - yOffset- margin;
+                    })
+                    .attr("width", function(d,i){
+                        return (w-xOffset-2*margin)/(data.length+1)-interval;
+                        }
+                    )
+                    .attr("height", function(d){
+                        console.log(d['y']);
+                        return (h - yOffset - 2*margin)*(d['y']-3)/9;})
+                    .attr("fill", "steelblue");
+                    //the following part implement the Whistle: Coordinated Views
+                    //when mouse on rect DOM, it will be highlighted, mouse out, it will turn back to original color
+                    d3.selectAll('rect').on('mouseover', function() {
+                            var rectc = d3.select(this)
+                                            .attr('class');
+                            d3.selectAll('.' + rectc)
+                                .attr('fill', 'yellow');
+                    })
+                    .on('mouseout',function(){
+                            var rectc = d3.select(this)
+                                            .attr('class');
+                            d3.selectAll('.' + rectc)
+                                .transition()
+                                .duration(400)
+                                .attr('fill', 'steelblue');
+                    });
+            g.selectAll("text")                        //create text DOM on svg2
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("font-size","8px")
+                    .attr("x",function(d,i){  
+                        return xOffset + margin+ i*(w-xOffset-2*margin)/(data.length+1)+(w-xOffset-2*margin)/(2*(data.length+1))+7;   
+                    })  
+                    .attr("y", function(d,i){  
+                        return h - ((d['y']-3)*(h - yOffset - margin*2)/9) - yOffset- margin-2;  
+                    })
+                    .text(function(d){  
+                        return d['y'];  
+                    });   
+
+        });
+
+        
+        // Put your part three & four code here ***********************
+
+        
+        // Put your part five code here ***********************
+        
+    </script>
+</body>
+
+
+</html>
