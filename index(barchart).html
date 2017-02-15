@@ -40,9 +40,9 @@
     </div>
     
     <script type="text/javascript">
-        // Put your part one code here ***********************
-        d3.csv('./data/anscombe_I.csv', function(dataset){
-            var data = new Array();
+    function linefit(dataName,svg,xScale,yScale){
+        d3.csv(dataName, function(dataset){
+        var data = new Array();
             var x = 0;
             var y = 0;
             for(var i = 0 ; i < dataset.length ; i++){
@@ -54,9 +54,21 @@
                 data[i] = temp;
             }
             var result = regression('linear', data);
+            var fitline = svg.append("line")
+            var xmax = d3.max(data,function(d){
+                        return parseFloat(d[0]);
+                    });
             console.log(result);
-
-
+            fitline.attr("x1",xScale(0))
+                    .attr("y1",yScale(result.equation[1]))
+                    .attr("x2",xScale(xmax))
+                    .attr("y2",yScale(xmax*result.equation[0]+result.equation[1]))
+                    .style("stroke","black")
+        });
+    }
+        // Put your part one code here ***********************
+        d3.csv('./data/anscombe_I.csv', function(dataset){
+            checkDataset(dataset)
         });
         d3.csv('./data/anscombe_II.csv', function(dataset){
             checkDataset(dataset)
@@ -317,7 +329,7 @@
             
             // Add a graphics element to hold the axis we created above (xAxis)
             var xAxisG = svg.append('g')
-                            .attr('class', 'axis')
+                            .attr('class', 'xaxis')
                             .attr('transform', 'translate(0, ' + (h - yOffset - margin) + ')')
                             .call(xAxis);
             
@@ -335,7 +347,7 @@
                               .ticks(10);
             
             var yAxisG = svg.append('g')
-                            .attr('class', 'axis')
+                            .attr('class', 'yaxis')
                             .attr('transform', 'translate(' + (xOffset+margin) + ', 0)')
                             .call(yAxis);
             
@@ -416,10 +428,15 @@
                         for(var i = 0; i < dataset.length ; i++){
                             var tmp = {x: dataset[i]['x'] , y: dataset[i]['y']}
                             newdata.push(tmp);
-
                         }
-                        console.log(newdata);
-                        console.log(data);
+
+                        var xmin = d3.min(newdata, function(d) { return parseFloat(d[xVal]);});
+                        var xmax = d3.max(newdata, function(d) { return parseFloat(d[xVal]);});
+                        var ymin = d3.min(newdata, function(d) { return parseFloat(d[yVal]);});
+                        var ymax = d3.max(newdata, function(d) { return parseFloat(d[yVal]);});
+                        xScale.domain([xmin-1, xmax+1]);
+                        yScale.domain([ymin-1, ymax+1]);
+                        
                         var points = svg.selectAll("circle");
                         points
                             .data(newdata)
@@ -442,7 +459,26 @@
                                     .duration(500)
                                     .style("fill", "steelblue")
                                     .attr("r", 5);
-                            })
+                            });
+
+                            var xxAxis = d3.svg.axis()
+                              .scale(xScale)
+                              .orient("bottom")
+                              .ticks(xmax-xmin+2);
+                            var yyAxis = d3.svg.axis()
+                              .scale(yScale)
+                              .orient("left")
+                              .ticks(ymax-ymin+2);
+
+                            svg.select("g.xaxis")
+                                .transition()
+                                .duration(1000)
+                                .call(xxAxis);
+                            svg.select("g.yaxis")
+                                .transition()
+                                .duration(1000)
+                                .call(yyAxis);
+                            
                     });
                 })
             
@@ -552,6 +588,8 @@
             //.duration(1000)
             .style('fill', 'steelblue');
 
+        linefit('./data/anscombe_I.csv',svg,xScale,yScale);
+
     });
 
     d3.csv('./data/anscombe_II.csv', function(csvData) {
@@ -655,7 +693,7 @@
             //.tranision()
             //.duration(1000)
             .style('fill', 'steelblue');
-
+        linefit('./data/anscombe_II.csv',svg,xScale,yScale);
     });
 
 
@@ -761,7 +799,7 @@
             //.tranision()
             //.duration(1000)
             .style('fill', 'steelblue');
-
+        linefit('./data/anscombe_III.csv',svg,xScale,yScale);
     });
 
     d3.csv('./data/anscombe_IV.csv', function(csvData) {
@@ -866,6 +904,7 @@
             //.tranision()
             //.duration(1000)
             .style('fill', 'steelblue');
+        linefit('./data/anscombe_IV.csv',svg,xScale,yScale);
     });
         
     </script>
