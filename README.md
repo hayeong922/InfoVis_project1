@@ -45,7 +45,7 @@ Whistle: Coordinated Views (Done)
 
 ##Source code list:
 
-SVG Text Element (https://www.dashingd3js.com/svg-text-element)
+1. SVG Text Element (https://www.dashingd3js.com/svg-text-element)
 
 Used to created text DOM to show the value over each bar.
 
