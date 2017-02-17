@@ -45,23 +45,23 @@ Whistle: Coordinated Views (Done)
 
 ##Source code list:
 
-SVG Text Element (https://www.dashingd3js.com/svg-text-element)
-<Used to created text DOM to show the value over each bar.>
+SVG Text Element (https://www.dashingd3js.com/svg-text-element)\\
+Used to created text DOM to show the value over each bar.\\
 Pieces referred: 
 
     var text = svgContainer.selectAll("text")
-26                        .data(circleData)
-27                        .enter()
-28                        .append("text");
-29// the part above is used to create text DOM attached to the bars. 
-30// the following part is used to set the text content and position.
-31var textLabels = text
-32                 .attr("x", function(d) { return d.cx; })
-33                 .attr("y", function(d) { return d.cy; })
-34                 .text( function (d) { return "( " + d.cx + ", " + d.cy +" )"; })
-35                 .attr("font-family", "sans-serif")
-36                 .attr("font-size", "20px")
-37                 .attr("fill", "red");
+                        .data(circleData)
+                        .enter()
+                        .append("text");
+// the part above is used to create text DOM attached to the bars. 
+// the following part is used to set the text content and position.
+    var textLabels = text
+                 .attr("x", function(d) { return d.cx; })
+                 .attr("y", function(d) { return d.cy; })
+                 .text( function (d) { return "( " + d.cx + ", " + d.cy +" )"; })
+                 .attr("font-family", "sans-serif")
+                 .attr("font-size", "20px")
+                 .attr("fill", "red");
 
 
 Will’s Block's D3 Scatterplot (Animations)
