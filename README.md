@@ -35,6 +35,8 @@ Bell: Best Fit Lines (Done)
 Whistle: Replication (Done)
 Uploaded in github directory
 
+For scatterplot, I used Tableau and compared to D3 it did not require coding. And I used csv file and set x to x-axis and y to y-axis. To represent scatterplot I used instead of 'measure' I used 'dimension' that way a dot can represnet value of x and y in csv file.
+
 Whistle: Coordinated Views (Done)
 
 
