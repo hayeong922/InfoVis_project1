@@ -47,9 +47,9 @@ Whistle: Coordinated Views (Done)
 
 1. SVG Text Element (https://www.dashingd3js.com/svg-text-element)
 
-Used to created text DOM to show the value over each bar.
+	Used to created text DOM to show the value over each bar.
 
-Pieces referred: 
+	Pieces referred: 
 
     var text = svgContainer.selectAll("text")
                         .data(circleData)
