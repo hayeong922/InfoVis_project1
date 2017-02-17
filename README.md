@@ -45,16 +45,18 @@ Whistle: Coordinated Views (Done)
 
 ##Source code list:
 
-SVG Text Element (https://www.dashingd3js.com/svg-text-element)\\
-Used to created text DOM to show the value over each bar.\\
+SVG Text Element (https://www.dashingd3js.com/svg-text-element)
+
+Used to created text DOM to show the value over each bar.
+
 Pieces referred: 
 
     var text = svgContainer.selectAll("text")
                         .data(circleData)
                         .enter()
                         .append("text");
-// the part above is used to create text DOM attached to the bars. 
-// the following part is used to set the text content and position.
+	// the part above is used to create text DOM attached to the bars. 
+	// the following part is used to set the text content and position.
     var textLabels = text
                  .attr("x", function(d) { return d.cx; })
                  .attr("y", function(d) { return d.cy; })
