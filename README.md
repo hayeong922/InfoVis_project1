@@ -45,9 +45,9 @@ Whistle: Coordinated Views (Done)
 
 ##Source code list:
 
-SVG Text Element (https://www.dashingd3js.com/svg-text-element)
+1.SVG Text Element (https://www.dashingd3js.com/svg-text-element)
 
-Used to created text DOM to show the value over each bar.
+  Used to created text DOM to show the value over each bar.
 
 Pieces referred: 
 
@@ -66,9 +66,9 @@ Pieces referred:
                  .attr("fill", "red");
 		 
 
-Will’s Block's D3 Scatterplot (Animations)(http://bl.ocks.org/WilliamQLiu/bd12f73d0b79d70bfbae)
+2.Will’s Block's D3 Scatterplot (Animations)(http://bl.ocks.org/WilliamQLiu/bd12f73d0b79d70bfbae)
 
-Used to implement Whistle: Transitions
+  Used to implement Whistle: Transitions
 
 Pieces referred:
 
@@ -76,7 +76,7 @@ Pieces referred:
                 .on("click", function() { //when click button, different data will be loaded
                     var numValues = dataset.length; 
                     var maxRange = Math.random() * 1000;                      
-	dataset = []; //initialize array to save the data
+		    dataset = []; //initialize array to save the data
                     for(var i=0; i<numValues; i++) {
                         var newNumber1 = Math.floor(Math.random() * maxRange); 
                         var newNumber2 = Math.floor(Math.random() * maxRange); 
@@ -131,16 +131,16 @@ Pieces referred:
                 });
 		
 
-regression.js from Tom Alexander(https://github.com/Tom-Alexander/regression-js/blob/master/build/regression.min.js)
+3.regression.js from Tom Alexander(https://github.com/Tom-Alexander/regression-js/blob/master/build/regression.min.js)
 
-Used to import the linear regression function for Bell: Best Fit Lines
+  Used to import the linear regression function for Bell: Best Fit Lines
 
-The js file is covered to compute linear regression, code is too long, so doesn’t shown in readme file.
+  The js file is covered to compute linear regression, code is too long, so doesn’t shown in readme file.
 
 
-D3.js linear regression from stackoverflow(http://stackoverflow.com/questions/20507536/d3-js-linear-regression)
+4.D3.js linear regression from stackoverflow(http://stackoverflow.com/questions/20507536/d3-js-linear-regression)
 
-Used to create the fitted lines for scatterplots in Part 5 ( Bell: Best Fit Lines )
+  Used to create the fitted lines for scatterplots in Part 5 ( Bell: Best Fit Lines )
 
 Pieces referred:
 
@@ -154,6 +154,6 @@ Pieces referred:
 	//After getting the parameters(slope and y intercept of the fitted line), we can draw the line based on the intercept point and the point with maximum x value.
 
 
-Part 2: Building Bars, Part 3: Building Scatterplots, part 4: interaction part and Bell:tooltips were implemented by using the code taught in class (tutorial code). To be more specific, we reused some of the code and made changes according to certain tasks. 
+5.Part 2: Building Bars, Part 3: Building Scatterplots, part 4: interaction part and Bell:tooltips were implemented by using the code taught in class (tutorial code). To be more specific, we reused some of the code and made changes according to certain tasks. 
 	
 
