@@ -39,6 +39,8 @@ Uploaded in github directory
 
 For scatterplot, I used Tableau and compared to D3 it did not require coding. And I used csv file and set x to x-axis and y to y-axis. To represent scatterplot I used instead of 'measure' I used 'dimension' that way a dot can represnet value of x and y in csv file.
 
+For bar chart, first, we separated the original csv data file into two, one contained number order and x value, the other contained number order and y value since we wanted to generate two figures corresponding to attributes x and y. Then we input the data files and set order and x, y vaules as dimensions. However, after that, the graph we could choose in 'show me' tag was just scatterplot, but we can choose marks' shape, so we set it as bar and got the bar charts we wanted. Compared with D3, sometimes Tableau can get me quite confused because even we've already had some dimensions and values, we need to change them to approriate formate and then it works. But it's quite fast to create some simple statistic plots without coding, which is convenient. 
+
 Whistle: Coordinated Views (Done)
 
 
