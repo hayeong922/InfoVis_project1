@@ -15,6 +15,7 @@ Part 2: Building Bars (Done)
 Part 3: Building Scatterplots (Done)
 
 Part 4: Interaction (Done)
+
 When you click on the dot in the graph, the x-coordinate and y-coordinate will appear or will be printed in screen.
 When hovering the graph, the dot will change it’s color to red and when the mouse is out the color changes back to it’s original color.
 
@@ -24,7 +25,8 @@ Part 5: Building Multiple Charts (Done)
 ##Bells & Whistles:
 
 Bell: Tooltips (Done)
-	-When hovering the dots that exist in graph, the tooltip will appear next to the dot that one is hovering to showing the x-coordinate and y-coordinate.
+
+When hovering the dots that exist in graph, the tooltip will appear next to the dot that one is hovering to showing the x-coordinate and y-coordinate.
 
 Bell: Xs and Ys (Done)
 
@@ -35,7 +37,7 @@ Bell: Best Fit Lines (Done)
 Whistle: Replication (Done)
 Uploaded in github directory
 
-	-For scatterplot, I used Tableau and compared to D3 it did not require coding. And I used csv file and set x to x-axis and y to y-axis. To represent scatterplot I used instead of 'measure' I used 'dimension' that way a dot can represnet value of x and y in csv file.
+For scatterplot, I used Tableau and compared to D3 it did not require coding. And I used csv file and set x to x-axis and y to y-axis. To represent scatterplot I used instead of 'measure' I used 'dimension' that way a dot can represnet value of x and y in csv file.
 
 Whistle: Coordinated Views (Done)
 
