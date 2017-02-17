@@ -78,7 +78,7 @@ Pieces referred:
                 .on("click", function() { //when click button, different data will be loaded
                     var numValues = dataset.length; 
                     var maxRange = Math.random() * 1000;                      
-		    dataset = []; //initialize array to save the data
+		    	dataset = []; //initialize array to save the data
                     for(var i=0; i<numValues; i++) {
                         var newNumber1 = Math.floor(Math.random() * maxRange); 
                         var newNumber2 = Math.floor(Math.random() * maxRange); 
